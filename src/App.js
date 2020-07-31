@@ -18,8 +18,6 @@ fcl
 // .put("accessNode", "http://localhost:8080")
 
 const deployCluesContract = async () => {
-  const user = fcl.currentUser();
-  const { authorization } = user;
   const deployTx = await deployContract(cluesContractUrl);
 
   fcl.tx(deployTx).subscribe(txStatus => {
@@ -72,6 +70,7 @@ function App() {
           <button onClick={deployCluesContract}>Deploy Clues Contract</button>
           <button onClick={deployPlayerContract}>Deploy Player Contract</button>
           <button onClick={deployGameContract}>Deploy Game Contract</button>
+          <button onClick={fcl.unauthenticate}>Logout</button>
         </div>
       ) : (
         <button onClick={fcl.authenticate}>Login</button>
