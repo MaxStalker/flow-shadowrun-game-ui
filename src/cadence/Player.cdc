@@ -102,23 +102,24 @@ import Clues from 0x01cf0e2f2f715450
             }
         }
 
+        //access(all) fun getMappingRef(itemType: String): &{UInt16: Clues.BaseClue} {
         //access(all) fun getMappingRef(itemType: String): &{UInt16: Clues.BaseClue}? {
-        access(all) fun getMappingRef(itemType: String): &AnyStruct{{UInt16: Clues.BaseClue}}? {
-            var mapping: &{UInt16: Clues.BaseClue}? = nil
+        access(all) fun getMappingRef(itemType: String): &{UInt16: AnyResource{Clues.BaseClue}}? {
+            var mapping: &{UInt16: AnyResource{Clues.BaseClue}}? = nil
             if (itemType == "KEY"){
-                mapping = &self.keyring as &{UInt16: Clues.BaseClue}
+                mapping = &self.keyring as &{UInt16: AnyResource{Clues.BaseClue}}
             } else if itemType == "CHEST"{
-                mapping = &self.chests as &{UInt16: Clues.BaseClue}
+                mapping = &self.chests as &{UInt16: AnyResource{Clues.BaseClue}}
             } else if itemType == "LOCATION"{
-                mapping = &self.locations as &{UInt16: Clues.BaseClue}
+                mapping = &self.locations as &{UInt16: AnyResource{Clues.BaseClue}}
             } else if itemType == "MAP"{
-                mapping = &self.maps as &{UInt16: Clues.BaseClue}
+                mapping = &self.maps as &{UInt16: AnyResource{Clues.BaseClue}}
             }
             return mapping
         } 
 
         access(all) fun listItems(itemType: String): [String?] {
-            if let mapping = self.getMappingRef(itemType: itemType) {
+            if let mapping = self.getMappingRef(itemType: itemType) as? &{UInt16: AnyResource{Clues.BaseClue}}  {
                 let keys = mapping.keys
                 var i = 0
                 var list: [String?] = []
@@ -160,3 +161,4 @@ import Clues from 0x01cf0e2f2f715450
         // No init needed here
     }
  }
+ 

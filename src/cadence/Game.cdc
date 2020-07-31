@@ -1,5 +1,5 @@
-import Clues from 0x01
-import Player from 0x02
+import Clues from 0x01cf0e2f2f715450
+import Player from 0x179b6b1cb6755e31
 
 access(all) contract Game{
     access(all) resource GameMaster{
@@ -51,7 +51,7 @@ access(all) contract Game{
             self.runnerCounter = 1
         }
 
-        access(all) fun setup(clueMinter: &Clues.ClueMinter, cloneBay: &Player.CloneBay){
+        access(all) fun setup(clueMinter: &Clues.ClueMinter, cloneBay: &Player.CloneBay) {
           self.clueMinter = clueMinter
           self.cloneBay = cloneBay
         }
@@ -60,7 +60,7 @@ access(all) contract Game{
           log("Hey, there 👋! Have some fun! 😉")
         }
 
-        pub fun getName(id: UInt16): String{
+        pub fun getName(id: UInt16): String {
           let names = [
           "Abaccus",
           "Bazillion",
@@ -73,7 +73,7 @@ access(all) contract Game{
           return names[Int(id) % names.length]
         }
 
-        pub fun getLocationDescription(location: String): String{
+        pub fun getLocationDescription(location: String): String {
             let descriptions = {
               "Library" : "The old town library lost it's function, when Matrix become widely available. It's more of a landmark right now, which also serves as storage for old books",
               "Junkyard" : "Favorite place of rats and junkers. You can also buy and sell some rare stuff. Though usually it's a junk from nearby pile, but you never know, what might end up there.",
@@ -84,7 +84,7 @@ access(all) contract Game{
             return descriptions[location] ?? "Some random place nobody cares"
         }
 
-        access(all) fun getEventText(_ eventName: String): String{
+        access(all) fun getEventText(_ eventName: String): String {
           let eventLogs = {
             "EXPLORE-MAP": "You decide to spent some time and examine the map in details. You read the legend and analyzed the paths to each of those outlined locations and now know how to get there",
             "CHEST-REWARD": "You've succesfully opened a chest and found ",
