@@ -5,6 +5,7 @@ import "./App.css";
 // Flow Interactions
 import simpleScript from "./flow/simple-script";
 import deployContract from "./flow/deploy-contract";
+import initGameMaster from './flow/init-game-master'
 
 // Cadence Files
 import cluesContractUrl from "./cadence/Clues.cdc";
@@ -53,6 +54,10 @@ const deployGameContract = async () => {
     }
   });
 };
+
+const summonGameMaster = async () =>{
+  const summonTx = await
+}
 
 function App() {
   const [user, setUser] = useState(null);
