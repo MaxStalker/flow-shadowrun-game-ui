@@ -1,24 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import * as fcl from "@onflow/fcl";
+
+import simpleScript from "./flow/simple-script";
+
+
+fcl
+  .config()
+  .put("challenge.handshake", "http://localhost:8701/flow/authenticate")
+  // .put("accessNode", "http://localhost:8080")
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={simpleScript}>Click me</button>
     </div>
   );
 }
