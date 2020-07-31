@@ -7,17 +7,18 @@ export default async (url, params) => {
   const user = fcl.currentUser();
   const { authorization } = user;
   const code = await loadContract(url, params);
+
   return fcl.send(
     [
       sdk.transaction`
-          transaction(code: String) {
+          transaction {
             prepare(acct: AuthAccount) {
-              acct.setCode(code.decodeHex())
+              acct.setCode("${(p) => p.code}".decodeHex())
             }
           }
         `,
-      fcl.args([
-        fcl.arg(Buffer.from(code, "utf8").toString("hex"), types.String),
+      fcl.params([
+        fcl.param(Buffer.from(code, "utf8").toString("hex"), types.Identity, "code"),
       ]),
       fcl.proposer(authorization),
       fcl.payer(authorization),

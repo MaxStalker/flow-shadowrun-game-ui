@@ -1,4 +1,4 @@
-import Clues from 0x01
+import Clues from 0x01cf0e2f2f715450
 
  /*
     Contract: Player
@@ -33,6 +33,7 @@ import Clues from 0x01
         }
 
         destroy(){
+            destroy self.currentLocation
             destroy self.keyring
             destroy self.chests
             destroy self.treasures
@@ -63,7 +64,7 @@ import Clues from 0x01
             log("You are currently located in ".concat(self.currentLocation.name))
         }
 
-        access(all) fun getLocationById(locationId: UInt16): @Clues.Location?{
+        access(all) fun getLocationById(locationId: UInt16): @Clues.Location? {
             let location <- self.locations[locationId] <- nil
             return <- location
         }
@@ -78,16 +79,16 @@ import Clues from 0x01
         }
 
         access(all) fun pocket(clue: @AnyResource){
-            if let key <- clue as? @Clues.Key{
+            if let key <- clue as? @Clues.Key {
                 let oldKey <- self.keyring[key.id] <- key
                 destroy oldKey
-            } else if let map <- clue as? @Clues.Map{
+            } else if let map <- clue as? @Clues.Map {
                 let oldMap <- self.maps[map.id] <- map
                 destroy oldMap
-            } else if let chest <- clue as? @Clues.Chest{
+            } else if let chest <- clue as? @Clues.Chest {
                 let oldChest <- self.chests[chest.id] <- chest
                 destroy oldChest
-            } else if let location <- clue as? @Clues.Location{
+            } else if let location <- clue as? @Clues.Location {
                 let oldLocation <- self.locations[location.id] <- location
                 destroy oldLocation
             } else {
@@ -101,7 +102,8 @@ import Clues from 0x01
             }
         }
 
-        access(all) fun getMappingRef(itemType: String): &{UInt16: Clues.BaseClue}? {
+        //access(all) fun getMappingRef(itemType: String): &{UInt16: Clues.BaseClue}? {
+        access(all) fun getMappingRef(itemType: String): &AnyStruct{{UInt16: Clues.BaseClue}}? {
             var mapping: &{UInt16: Clues.BaseClue}? = nil
             if (itemType == "KEY"){
                 mapping = &self.keyring as &{UInt16: Clues.BaseClue}
@@ -115,7 +117,7 @@ import Clues from 0x01
             return mapping
         } 
 
-        access(all) fun listItems(itemType: String): [String?]{
+        access(all) fun listItems(itemType: String): [String?] {
             if let mapping = self.getMappingRef(itemType: itemType) {
                 let keys = mapping.keys
                 var i = 0
@@ -141,7 +143,7 @@ import Clues from 0x01
     }
 
     access(all) resource CloneBay {
-        access(all) fun createRunner(id: UInt16, name: String, startingLocation: @Clues.Location): @Runner{
+        access(all) fun createRunner(id: UInt16, name: String, startingLocation: @Clues.Location): @Runner {
             let runner <- create Runner(id: id, name: name, startingLocation: <- startingLocation)
             return <- runner
         }

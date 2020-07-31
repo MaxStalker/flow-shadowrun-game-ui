@@ -9,6 +9,8 @@ import deployContract from "./flow/deploy-contract";
 // Cadence Files
 import cluesContractUrl from "./cadence/Clues.cdc";
 import playerContractUrl from "./cadence/Player.cdc";
+import * as sdk from "@onflow/sdk";
+import * as types from "@onflow/types";
 
 fcl
   .config()
@@ -16,7 +18,10 @@ fcl
 // .put("accessNode", "http://localhost:8080")
 
 const deployCluesContract = async () => {
+  const user = fcl.currentUser();
+  const { authorization } = user;
   const deployTx = await deployContract(cluesContractUrl);
+
   fcl.tx(deployTx).subscribe(txStatus => {
     if (fcl.tx.isExecuted(txStatus)) {
       console.log("Clues Contract was deployed");
@@ -64,10 +69,8 @@ function App() {
         <div>
           <p>Your address:</p>
           <p>{user.addr}</p>
-          {/*          <button onClick={deployCluesContract}>Deploy
-           Clues Contract</button>*/}
-          {/*          <button onClick={deployPlayerContract}>Deploy
-           Player Contract</button>*/}
+          <button onClick={deployCluesContract}>Deploy Clues Contract</button>
+          <button onClick={deployPlayerContract}>Deploy Player Contract</button>
           <button onClick={deployGameContract}>Deploy Game Contract</button>
         </div>
       ) : (
