@@ -229,12 +229,17 @@ access(all) contract Game{
         }
     }
 
+    // We can give out new resources or we can share a reference
+    access(all) fun summonGameMaster():@GameMaster {
+        return <- create GameMaster()
+    }
+
       init(){
         // let oldMaster <- self.account.storage[GameMaster] <- create GameMaster()
         // destroy oldMaster
 
 
         // TODO: Remove previously owned GameMaster resource if it present in path
-        self.account.save<@GameMaster>(<-create GameMaster(), to: /storage/GameMaster)
+        // self.account.save<@GameMaster>(<-create GameMaster(), to: /storage/GameMaster)
     }
 }

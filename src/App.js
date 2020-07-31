@@ -5,13 +5,11 @@ import "./App.css";
 // Flow Interactions
 import simpleScript from "./flow/simple-script";
 import deployContract from "./flow/deploy-contract";
-import initGameMaster from './flow/init-game-master'
+import initGameMaster from "./flow/init-game-master";
 
 // Cadence Files
 import cluesContractUrl from "./cadence/Clues.cdc";
 import playerContractUrl from "./cadence/Player.cdc";
-import * as sdk from "@onflow/sdk";
-import * as types from "@onflow/types";
 
 fcl
   .config()
@@ -55,9 +53,16 @@ const deployGameContract = async () => {
   });
 };
 
-const summonGameMaster = async () =>{
-  const summonTx = await
-}
+const summonGameMaster = async () => {
+  console.log("Start Summoning");
+  const summonTx = await initGameMaster();
+
+  fcl.tx(summonTx).subscribe(txStatus => {
+    if (fcl.tx.isExecuted(txStatus)) {
+      console.log("Summoning has been completed!");
+    }
+  });
+};
 
 function App() {
   const [user, setUser] = useState(null);
@@ -72,9 +77,14 @@ function App() {
         <div>
           <p>Your address:</p>
           <p>{user.addr}</p>
-          <button onClick={deployCluesContract}>Deploy Clues Contract</button>
-          <button onClick={deployPlayerContract}>Deploy Player Contract</button>
-          <button onClick={deployGameContract}>Deploy Game Contract</button>
+          <div>
+            <button onClick={deployCluesContract}>Deploy Clues Contract</button>
+            <button onClick={deployPlayerContract}>
+              Deploy Player Contract
+            </button>
+            <button onClick={deployGameContract}>Deploy Game Contract</button>
+          </div>
+          <button onClick={summonGameMaster}>Summon Game Master</button>
           <button onClick={fcl.unauthenticate}>Logout</button>
         </div>
       ) : (
