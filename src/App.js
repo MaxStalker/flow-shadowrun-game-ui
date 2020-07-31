@@ -4,21 +4,52 @@ import "./App.css";
 
 // Flow Interactions
 import simpleScript from "./flow/simple-script";
-import deployContract from './flow/deploy-contract';
+import deployContract from "./flow/deploy-contract";
 
 // Cadence Files
-import cluesContract from "./cadence/Clues.cdc";
+import cluesContractUrl from "./cadence/Clues.cdc";
+import playerContractUrl from "./cadence/Player.cdc";
 
 fcl
   .config()
   .put("challenge.handshake", "http://localhost:8701/flow/authenticate");
 // .put("accessNode", "http://localhost:8080")
 
-const deployCluesContract = async () => {};
+const deployCluesContract = async () => {
+  const deployTx = await deployContract(cluesContractUrl);
+  fcl.tx(deployTx).subscribe(txStatus => {
+    if (fcl.tx.isExecuted(txStatus)) {
+      console.log("Clues Contract was deployed");
+    }
+  });
+};
 
-const deployPlayerContract = async () => {};
+const deployPlayerContract = async () => {
+  const deployTx = await deployContract(playerContractUrl, {
+    query: /(0x01)/g,
+    "0x01": "0x01cf0e2f2f715450"
+  });
 
-const deployGameContract = async () => {};
+  fcl.tx(deployTx).subscribe(txStatus => {
+    if (fcl.tx.isExecuted(txStatus)) {
+      console.log("Player Contract was deployed");
+    }
+  });
+};
+
+const deployGameContract = async () => {
+  const deployTx = await deployContract(playerContractUrl, {
+    query: /(0x01|0x02)/g,
+    "0x01": "0x01cf0e2f2f715450",
+    "0x02": "0x179b6b1cb6755e31"
+  });
+
+  fcl.tx(deployTx).subscribe(txStatus => {
+    if (fcl.tx.isExecuted(txStatus)) {
+      console.log("Game Contract was deployed");
+    }
+  });
+};
 
 function App() {
   const [user, setUser] = useState(null);
@@ -33,7 +64,11 @@ function App() {
         <div>
           <p>Your address:</p>
           <p>{user.addr}</p>
-          <button onClick={() => {}}>Deploy Contract</button>
+          {/*          <button onClick={deployCluesContract}>Deploy
+           Clues Contract</button>*/}
+          {/*          <button onClick={deployPlayerContract}>Deploy
+           Player Contract</button>*/}
+          <button onClick={deployGameContract}>Deploy Game Contract</button>
         </div>
       ) : (
         <button onClick={fcl.authenticate}>Login</button>
