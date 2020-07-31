@@ -10,6 +10,7 @@ import initGameMaster from "./flow/init-game-master";
 // Cadence Files
 import cluesContractUrl from "./cadence/Clues.cdc";
 import playerContractUrl from "./cadence/Player.cdc";
+import gameContractUrl from "./cadence/Game.cdc";
 
 fcl
   .config()
@@ -40,10 +41,11 @@ const deployPlayerContract = async () => {
 };
 
 const deployGameContract = async () => {
-  const deployTx = await deployContract(playerContractUrl, {
+  const deployTx = await deployContract(gameContractUrl, {
     query: /(0x01|0x02)/g,
     "0x01": "0x01cf0e2f2f715450",
-    "0x02": "0x179b6b1cb6755e31"
+    "0x02": "0x179b6b1cb6755e31",
+    "0x03": "0xf3fcd2c1a78f5eee"
   });
 
   fcl.tx(deployTx).subscribe(txStatus => {

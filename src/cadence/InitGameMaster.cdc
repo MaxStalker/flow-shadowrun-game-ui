@@ -11,7 +11,7 @@ transaction {
 
     let clueMinterRef = acct.borrow<&Clues.ClueMinter>(from: /storage/clueMinter)!
     let cloneBayRef = acct.borrow<&Player.CloneBay>(from: /storage/cloneBay)!
-    let gameMaster = acct.borrow<&Game.GameMaster>(from: /storage/gameMaster)!
+    //let gameMaster = acct.borrow<&Game.GameMaster>(from: /storage/gameMaster)!
 
     gameMaster.setup(clueMinter: clueMinterRef, cloneBay: cloneBayRef)
     gameMaster.ping()

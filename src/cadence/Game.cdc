@@ -235,6 +235,7 @@ access(all) contract Game{
     }
 
       init(){
+        log("I am here guys. Help me out!");
         // let oldMaster <- self.account.storage[GameMaster] <- create GameMaster()
         // destroy oldMaster
 
