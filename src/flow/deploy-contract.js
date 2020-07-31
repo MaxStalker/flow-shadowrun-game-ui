@@ -17,11 +17,7 @@ export default async (url, params) => {
           }
         `,
       fcl.args([
-        fcl.arg(
-          Buffer.from(code, "utf8").toString("hex"),
-          types.Identity,
-          "code"
-        )
+        fcl.arg(Buffer.from(code, "utf8").toString("hex"), types.String),
       ]),
       fcl.proposer(authorization),
       fcl.payer(authorization),
