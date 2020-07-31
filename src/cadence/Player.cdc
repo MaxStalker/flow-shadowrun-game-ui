@@ -45,7 +45,7 @@ import Clues from 0x01
             log("My name is: ".concat(self.name))
         }
 
-        pub fun intToString(_ num: Int):String{
+        pub fun intToString(_ num: Int):String {
             let digits = "0123456789"
 
             var numberString = ""
@@ -147,15 +147,14 @@ import Clues from 0x01
         }
     }
 
-    /*
+    
     // We can give out new resources or we can share a reference
-    access(all) fun buildCloneBay():@CloneBay{
+    access(all) fun buildCloneBay():@CloneBay {
         return <- create CloneBay()
     }
-    */
+    
 
     init(){
-        let oldMnter <- self.account.storage[CloneBay] <- create CloneBay()
-        destroy oldMnter
+        // No init needed here
     }
  }

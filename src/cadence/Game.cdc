@@ -230,7 +230,11 @@ access(all) contract Game{
     }
 
       init(){
-        let oldMaster <- self.account.storage[GameMaster] <- create GameMaster()
-        destroy oldMaster
+        // let oldMaster <- self.account.storage[GameMaster] <- create GameMaster()
+        // destroy oldMaster
+
+
+        // TODO: Remove previously owned GameMaster resource if it present in path
+        self.account.save<@GameMaster>(<-create GameMaster(), to: /storage/GameMaster)
     }
 }
