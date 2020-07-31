@@ -1,5 +1,5 @@
-import Clues from 0x01cf0e2f2f715450
-import Player from 0x179b6b1cb6755e31
+import Clues from 0x01
+import Player from 0x02
 
 access(all) contract Game{
     access(all) resource GameMaster{
@@ -164,7 +164,7 @@ access(all) contract Game{
             runner.pocket(clue: <- newKey)
           }
         }
-        
+
         access(all) fun examine(runner: &Player.Runner, itemType: String, itemId: UInt16){
           if let mapping = runner.getMappingRef(itemType: itemType) {
             if let clueType = mapping[itemId]?.clueType{
@@ -176,19 +176,19 @@ access(all) contract Game{
                   self.giveRewards(runner: runner, rewards: rewards)
                 }
               }
-            }   
+            }
           } else {
             log("You do not hold anything in your hands, kid...")
           }
         }
 
-        
+
         /*
         access(all) fun open(runner: &Player.Runner, chest: @Clues.Chest, key: @Clues.Key){
-          // TODO: Finish code to open chest   
+          // TODO: Finish code to open chest
         }
         */
-        
+
 
         access(all) fun giveRewards(runner: &Player.Runner, rewards: [Clues.Reward]){
           var i = 0
@@ -223,7 +223,7 @@ access(all) contract Game{
 
                 self.giveRewards(runner: runner, rewards: rewards)
                 // REFACTOR: Clear rewards here to prevent double claiming...
-              
+
               }
             }
         }

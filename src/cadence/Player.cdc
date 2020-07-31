@@ -1,4 +1,4 @@
-import Clues from 0x01cf0e2f2f715450
+import Clues from 0x01
 
  /*
     Contract: Player
@@ -19,7 +19,7 @@ import Clues from 0x01cf0e2f2f715450
         access(all) let maps: @{UInt16: Clues.Map}
         access(all) let locations: @{UInt16: Clues.Location} // ⚠ REFACTOR to @{String: Location}
 
-        init(id: UInt16, name: String, startingLocation: @Clues.Location){ 
+        init(id: UInt16, name: String, startingLocation: @Clues.Location){
             self.sin = id
             self.name = name
             self.keyring <- {}
@@ -116,7 +116,7 @@ import Clues from 0x01cf0e2f2f715450
                 mapping = &self.maps as &{UInt16: AnyResource{Clues.BaseClue}}
             }
             return mapping
-        } 
+        }
 
         access(all) fun listItems(itemType: String): [String?] {
             if let mapping = self.getMappingRef(itemType: itemType) as? &{UInt16: AnyResource{Clues.BaseClue}}  {
@@ -137,10 +137,10 @@ import Clues from 0x01cf0e2f2f715450
                     list.append(description)
                     i = i + 1
                 }
-                return list    
+                return list
             }
             return []
-        } 
+        }
     }
 
     access(all) resource CloneBay {
@@ -150,15 +150,14 @@ import Clues from 0x01cf0e2f2f715450
         }
     }
 
-    
+
     // We can give out new resources or we can share a reference
     access(all) fun buildCloneBay():@CloneBay {
         return <- create CloneBay()
     }
-    
+
 
     init(){
         // No init needed here
     }
  }
- 
